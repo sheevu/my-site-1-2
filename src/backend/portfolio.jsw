@@ -1,0 +1,22 @@
+import wixData from 'wix-data';
+
+/**
+ * Fetches active profiles in a specific city from the Portfolio collection.
+ * Runs on the backend server, allowing safe bypassing of collection permission blockades.
+ * 
+ * @param {string} city - The city to filter profiles by.
+ * @returns {Promise<Array>} List of active profiles.
+ */
+export async function fetchActiveProfiles(city) {
+    try {
+        const results = await wixData.query("Portfolio")
+            .eq("city", city)
+            .eq("status", "active")
+            .limit(12)
+            .find({ suppressAuth: true }); // Safely bypasses database permission blockades
+        return results.items;
+    } catch (err) {
+        console.error(`Backend fetch error for city ${city}:`, err);
+        return [];
+    }
+}

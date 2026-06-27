@@ -1,3 +1,9 @@
 {
-  "web-methods": { }
+  "web-methods": {
+    "backend/portfolio.jsw": {
+      "fetchActiveProfiles": {
+        "permit": "Anyone"
+      }
+    }
+  }
 }
